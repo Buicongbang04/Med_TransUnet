@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 The training and testing scripts call `.cuda()`, so use a machine with an NVIDIA GPU and a CUDA-compatible PyTorch installation.
 
-Place the R50-ViT-B/16 pretrained weight here:
+Place the [R50-ViT-B_16 pretrained weight](https://console.cloud.google.com/storage/browser/_details/vit_models/imagenet21k/R50%2BViT-B_16.npz;tab=live_object?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))) here:
 
 ```text
 pretrained/imagenet21k_R50+ViT-B_16.npz
