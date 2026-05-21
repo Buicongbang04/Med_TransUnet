@@ -69,8 +69,8 @@ if __name__ == "__main__":
             'num_classes': 9,
         },
         'LiTS': {
-            'root_path': 'data/LiTS/train_npz',
-            'list_dir': 'data/LiTS/lists_LiTS',
+            'root_path': args.root_path,
+            'list_dir': args.list_dir,
             'num_classes': 2,
         },
     }

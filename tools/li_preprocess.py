@@ -120,7 +120,7 @@ def split_cases(case_infos,
             return resolved
 
         train_cases = resolve_cases(split_info.get('train', []))
-        val_cases = resolve_cases(split_info.get('valid', []))
+        val_cases = resolve_cases(split_info.get('val', []))
         test_cases = resolve_cases(split_info.get('test', []))
 
         return train_cases, val_cases, test_cases

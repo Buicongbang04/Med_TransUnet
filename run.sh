@@ -1,23 +1,21 @@
-echo "========================================================="
+echo "#########################################################"
 echo "START RUNNING CROSS-VALIDATION FOR LITS17 USING TRANSUNET"
-echo "========================================================="
+echo "#########################################################"
+echo ""
+echo ""
 
 SPLIT_PATH="data/splits"
 
-for i in {0..4}
+for i in {0..2}
 do
     echo "========================================================================="
     echo "Processing fold ${i}..."
     echo "========================================================================="
+    echo ""
 
-    # Remove old processed dataset
-    if [ -d "data/LiTS" ]; then
-        echo "Folder data/LiTS already exists. Removing it..."
-        rm -rf data/LiTS
-    fi
-
-    echo "Creating folder data/LiTS..."
-    mkdir -p data/LiTS
+    echo "Creating new folder ${i}..."
+    mkdir -p data/LiTS/fold_${i}
+    echo ""
 
     # =========================================================
     # Preprocess
@@ -28,7 +26,7 @@ do
 
     python tools/li_preprocess.py \
         --lits-root data/LiTS17 \
-        --out-root data/LiTS \
+        --out-root data/LiTS/fold_${i} \
         --img-size 512 \
         --split-file ${SPLIT_PATH}/liver_fold_${i}.json \
         --clean
@@ -41,6 +39,8 @@ do
     echo "========================================================================="
     echo "Finished preprocess for fold ${i}"
     echo "========================================================================="
+    echo ""
+    echo ""
 
     # =========================================================
     # Training
@@ -51,6 +51,8 @@ do
 
     CUDA_VISIBLE_DEVICES=0 python train.py \
         --dataset LiTS \
+        --root_path data/LiTS/fold_${i}/train_npz \
+        --list_dir data/LiTS/fold_${i}/lists_LiTS \
         --vit_name R50-ViT-B_16 \
         --img_size 512 \
         --batch_size 4 \
@@ -64,7 +66,8 @@ do
     echo "========================================================================="
     echo "Finished training for fold ${i}"
     echo "========================================================================="
-
+    echo ""
+    echo ""
 done
 
 echo "========================================================================="

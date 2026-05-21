@@ -22,7 +22,7 @@ def trainer_synapse(args, model, snapshot_path):
                         format='[%(asctime)s.%(msecs)03d] %(message)s', 
                         datefmt='%H:%M:%S')
 
-    logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
+    # logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
     logging.info(str(args))
     base_lr = args.base_lr
     num_classes = args.num_classes
