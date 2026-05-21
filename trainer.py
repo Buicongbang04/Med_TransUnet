@@ -42,8 +42,17 @@ def validate(model, valloader, ce_loss, dice_loss, num_classes):
     n = 0
 
     for sampled_batch in valloader:
-        image_batch = sampled_batch["image"].cuda()
-        label_batch = sampled_batch["label"].cuda().long()
+        image_batch = sampled_batch["image"]
+        label_batch = sampled_batch["label"]
+
+        if len(image_batch.shape) == 3:
+            image_batch = image_batch.unsqueeze(1)
+
+        if len(image_batch.shape) == 2:
+            image_batch = image_batch.unsqueeze(0).unsqueeze(0)
+
+        image_batch = image_batch.float().cuda()
+        label_batch = label_batch.long().cuda()
 
         outputs = model(image_batch)
 
