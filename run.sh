@@ -57,7 +57,6 @@ do
         --img_size 512 \
         --batch_size 4 \
         --output-dir output/lits_fold_${i}
-        --max_epochs 100 \
 
     if [ $? -ne 0 ]; then
         echo "Training failed for fold ${i}"
