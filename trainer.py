@@ -76,18 +76,6 @@ def validate(model, valloader, ce_loss, dice_loss, num_classes):
 
 
 def trainer_synapse(args, model, snapshot_path):
-    """
-    Trainer compatible with original TransUNet style, but adapted for current project:
-
-    - epoch-based training
-    - train + validation loop
-    - CE + Dice loss
-    - validation Dice monitoring
-    - save best_model.pth
-    - save periodic checkpoints
-    - optional early stopping to reduce overfitting
-    """
-
     os.makedirs(snapshot_path, exist_ok=True)
 
     log_path = os.path.join(args.output_dir, "train.log") if hasattr(args, "output_dir") else os.path.join(snapshot_path, "train.log")
@@ -153,7 +141,7 @@ def trainer_synapse(args, model, snapshot_path):
         train_dataset,
         batch_size=batch_size,
         shuffle=True,
-        num_workers=8,
+        num_workers=10,
         pin_memory=True,
         worker_init_fn=worker_init_fn,
     )
@@ -189,7 +177,7 @@ def trainer_synapse(args, model, snapshot_path):
 
     val_interval = getattr(args, "val_interval", 1)
     save_interval = getattr(args, "save_interval", 10)
-    early_stop_patience = getattr(args, "early_stop_patience", 20)
+    early_stop_patience = getattr(args, "early_stop_patience", 5)
     min_delta = getattr(args, "min_delta", 1e-4)
 
     best_dice = 0.0

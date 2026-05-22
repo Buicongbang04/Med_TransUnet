@@ -1,4 +1,4 @@
-for i in {0..2}
+for i in 0
 do 
     echo "###########################"
     echo "Starting Test for fold ${i}..."
@@ -15,8 +15,8 @@ do
         --vit_name R50-ViT-B_16 \
         --img_size 512 \
         --batch_size 4 \
-        --output-dir outputs/lits_fold_${i} \
-        --checkpoint best_model.pth \
+        --output-dir output/lits_fold_${i} \
+        --checkpoint output/lits_fold_${i}/checkpoints/best_model.pth \
         --is_savenii
     if [ $? -ne 0 ]; then
         echo "Testing failed for fold ${i}"

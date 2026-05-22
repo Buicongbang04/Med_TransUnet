@@ -301,7 +301,7 @@ args = parser.parse_args()
 def inference(args, model, test_save_path=None):
     db_test = args.Dataset(
         base_dir=args.volume_path,
-        split="test_vol",
+        split="test",
         list_dir=args.list_dir
     )
 
@@ -309,7 +309,7 @@ def inference(args, model, test_save_path=None):
         db_test,
         batch_size=1,
         shuffle=False,
-        num_workers=1
+        num_workers=10
     )
 
     logging.info("{} test iterations per epoch".format(len(testloader)))
@@ -365,12 +365,7 @@ def inference(args, model, test_save_path=None):
 
 
 def resolve_checkpoint(args):
-    checkpoint_dir = os.path.join(args.output_dir, 'checkpoints')
-
-    if os.path.isabs(args.checkpoint) or os.path.dirname(args.checkpoint):
-        snapshot = args.checkpoint
-    else:
-        snapshot = os.path.join(checkpoint_dir, args.checkpoint)
+    snapshot = args.checkpoint
 
     if not os.path.exists(snapshot):
         raise FileNotFoundError(f"Checkpoint not found: {snapshot}")

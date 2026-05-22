@@ -6,7 +6,7 @@ echo ""
 
 SPLIT_PATH="data/splits"
 
-for i in {0..2}
+for i in {1..2}
 do
     echo "========================================================================="
     echo "Processing fold ${i}..."
@@ -57,6 +57,7 @@ do
         --img_size 512 \
         --batch_size 4 \
         --output-dir output/lits_fold_${i}
+        --max_epochs 100 \
 
     if [ $? -ne 0 ]; then
         echo "Training failed for fold ${i}"
